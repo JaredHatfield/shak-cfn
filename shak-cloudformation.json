@@ -6,10 +6,34 @@
       "Description": "Name of the Shak queue",
       "Type": "String",
       "Default": "shak-queue"
+    },
+    "ShakTopicName": {
+      "Description": "Name of the Shak topic",
+      "Type": "String",
+      "Default": "shak-topic"
     }
   },
   "Mappings": {},
   "Resources": {
+    "ShakTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "TopicName": {
+          "Ref": "ShakTopicName"
+        },
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Fn::GetAtt": [
+                "ShakQueue",
+                "Arn"
+              ]
+            },
+            "Protocol": "sqs"
+          }
+        ]
+      }
+    },
     "ShakQueue": {
       "Type": "AWS::SQS::Queue",
       "Properties": {
