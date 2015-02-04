@@ -1,0 +1,23 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation for Shak resources.",
+  "Parameters": {
+    "ShakQueueName": {
+      "Description": "Name of the Shak queue",
+      "Type": "String",
+      "Default": "shak-queue"
+    }
+  },
+  "Mappings": {},
+  "Resources": {
+    "ShakQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": {
+          "Ref": "ShakQueueName"
+        }
+      }
+    }
+  },
+  "Outputs": {}
+}
