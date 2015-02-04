@@ -41,6 +41,38 @@
           "Ref": "ShakQueueName"
         }
       }
+    },
+    "ShakQueuePolicy": {
+      "Type": "AWS::SQS::QueuePolicy",
+      "Properties": {
+        "Queues": [
+          {
+            "Ref": "ShakQueue"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Id": "ShakQueuePolicy",
+          "Statement": [
+            {
+              "Sid": "Allow-SendMessage-To-Queue-From-SNS-Topic",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "sqs:SendMessage"
+              ],
+              "Resource": "*",
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Ref": "ShakTopic"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "Outputs": {}
