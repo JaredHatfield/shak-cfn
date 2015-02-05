@@ -73,6 +73,84 @@
           ]
         }
       }
+    },
+    "ShakEnqueue": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "ShakEnqueuePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sns:Publish"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "ShakTopic"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Deny",
+                  "Action": [
+                    "sns:*"
+                  ],
+                  "NotResource": [
+                    {
+                      "Ref": "ShakTopic"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ShakDequeue": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "ShakDequeuePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ChangeMessageVisibility",
+                    "sqs:DeleteMessage",
+                    "sqs:ReceiveMessage"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "ShakQueue"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Deny",
+                  "Action": [
+                    "sqs:*"
+                  ],
+                  "NotResource": [
+                    {
+                      "Ref": "ShakQueue"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
     }
   },
   "Outputs": {}
