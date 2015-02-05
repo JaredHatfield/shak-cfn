@@ -131,7 +131,10 @@
                   ],
                   "Resource": [
                     {
-                      "Ref": "ShakQueue"
+                      "Fn::GetAtt": [
+                        "ShakQueue",
+                        "Arn"
+                      ]
                     }
                   ]
                 },
@@ -142,7 +145,10 @@
                   ],
                   "NotResource": [
                     {
-                      "Ref": "ShakQueue"
+                      "Fn::GetAtt": [
+                        "ShakQueue",
+                        "Arn"
+                      ]
                     }
                   ]
                 }
