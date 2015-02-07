@@ -39,7 +39,12 @@
       "Properties": {
         "QueueName": {
           "Ref": "ShakQueueName"
-        }
+        },
+        "DelaySeconds": "0",
+        "MaximumMessageSize": "262144",
+        "MessageRetentionPeriod": "1209600",
+        "ReceiveMessageWaitTimeSeconds": "20",
+        "VisibilityTimeout": "60"
       }
     },
     "ShakQueuePolicy": {
